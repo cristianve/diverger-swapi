@@ -1,4 +1,4 @@
-package com.dirverger.swapi;
+package com.diverger.swapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
