@@ -32,7 +32,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<!--Swagger UI https://www.baeldung.com/spring-rest-openapi-documentation-->
 		<!--http://localhost:8080/swagger-ui/index.html-->
 		<dependency>

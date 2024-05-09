@@ -54,9 +54,43 @@ Diverger Swapi Proxy Java API
 - **Incorrect name** -- return --> **JSON 404 ERROR**
 - Attribute **fastest_vehicle_driven** has to be filled with the faster (high max_atmosphering_speed) vehicle or starship.
 
+### Folder Structure - DDD
+
+``` 
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───com
+│   │   │       └───diverger
+│   │   │           └───swapi
+│   │   │               ├───application
+│   │   │               ├───domain
+│   │   │               └───infraestructure
+│   │   │                   ├───config
+│   │   │                   ├───controller
+│   │   │                   └───external
+│   │   └───resources
+│   │       │   application.properties
+│   │       ├───static
+│   │       └───templates
+│   └───test
+│       └───java
+│           └───com
+│               └───diverger
+│                   └───swapi
+│                           SwapiApplicationTests.java
+```
+
+* Postman collection JSON to import with all endpoints.
+
+# Error Handling strategy
 
 
 # How to set up
 
+```mvn clean install```
+
+### Swagger URL:
+http://localhost:8080/swagger-ui/index.html
 
 # Results

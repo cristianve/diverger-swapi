@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "63322bff-2c60-487f-8503-c2e9c9958965",
+		"name": "Swapi API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12267054"
+	},
+	"item": [
+		{
+			"name": "Person Info",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
