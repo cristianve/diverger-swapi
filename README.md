@@ -124,6 +124,15 @@ mvn clean install
 java -jar target/swapi-0.0.1-SNAPSHOT.jar
 ```
 
+
+### Docker steps:
+
+```
+docker build -t swapi .
+
+docker run -p 8080:8080 swapi
+```
+
 ### Swagger URL:
 
 http://localhost:8080/swagger-ui/index.html
@@ -132,12 +141,20 @@ http://localhost:8080/swagger-ui/index.html
 
 🎉 **Successful 200 OK**:
 
-[![image](./img/200OK.PNG)]
+![image](./img/200OK.PNG)
 
 ❌ **404 Not Found**:
 
-[![image](./img/404.PNG)]
+![image](./img/404.PNG)
+
+🟢 Swagger
+
+![image](./img/Swagger.PNG)
+
+
+📦 Docker:
+![image](./img/Docker.PNG)
 
 🔍 Unitary test:
 
-[![image](./img/TEST.PNG)]
+![image](./img/TEST.PNG)
