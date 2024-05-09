@@ -16,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -32,31 +34,41 @@ public class SwapiRepositoryImpl implements SwapiRepository {
         this.restTemplate = restTemplate;
     }
 
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
     @Override
     public PersonInfo getPersonInfo(String name) {
         String url = baseUrl + peoplePath;
         ResponseEntity<SwapiPeopleResponseEntity> response = restTemplate.getForEntity(url, SwapiPeopleResponseEntity.class);
 
-        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            SwapiPeopleResponseEntity swapiPeopleResponse = response.getBody();
-            // Search the person on the result list (person list)
-            for (SwapiPeopleEntity person : swapiPeopleResponse.getResults()) {
-                if (person.getName().equalsIgnoreCase(name)) {
-                    PersonInfo personInfo = new PersonInfo();
-                    personInfo.setName(person.getName());
-                    personInfo.setBirth_year(person.getBirth_year());
-                    personInfo.setGender(person.getGender());
-                    personInfo.setPlanet_name(this.extractPlanetName(person.getHomeworld()));
-                    personInfo.setFastest_vehicle_driven(this.extractFastestVehicleOrStarshipName(mergeVehicleAndStarshipUrls(person.getVehicles(), person.getStarships())));
-                    personInfo.setFilms(this.extractFilms(person.getFilms()));
+        Optional<PersonInfo> personInfo = response.getStatusCode() == HttpStatus.OK && response.getBody() != null ?
+                findPersonInfoByName(response.getBody(), name) :
+                Optional.empty();
 
-                    return personInfo;
-                }
-            }
-        }
-        throw new PersonNotFoundException();
+        return personInfo.orElseThrow(() -> new PersonNotFoundException());
     }
 
+    private Optional<PersonInfo> findPersonInfoByName(SwapiPeopleResponseEntity swapiPeopleResponse, String name) {
+        for (SwapiPeopleEntity person : swapiPeopleResponse.getResults()) {
+            if (person.getName().equalsIgnoreCase(name)) {
+                return Optional.of(mapToPersonInfo(person));
+            }
+        }
+        return Optional.empty();
+    }
+
+    private PersonInfo mapToPersonInfo(SwapiPeopleEntity person) {
+        PersonInfo personInfo = new PersonInfo();
+        personInfo.setName(person.getName());
+        personInfo.setBirth_year(person.getBirth_year());
+        personInfo.setGender(person.getGender());
+        personInfo.setPlanet_name(this.extractPlanetName(person.getHomeworld()));
+        personInfo.setFastest_vehicle_driven(this.extractFastestVehicleOrStarshipName(mergeVehicleAndStarshipUrls(person.getVehicles(), person.getStarships())));
+        personInfo.setFilms(this.extractFilms(person.getFilms()));
+        return personInfo;
+    }
 
     private String extractPlanetName(String homeworldUrl) {
 
@@ -94,18 +106,11 @@ public class SwapiRepositoryImpl implements SwapiRepository {
 
     private List<Film> extractFilms(List<String> filmUrls) {
 
-
-        List<Film> films = new ArrayList<>();
-
-        for (String url : filmUrls) {
-            ResponseEntity<Film> response = restTemplate.getForEntity(baseUrl + url.replace(baseUrl, ""), Film.class);
-
-            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-                films.add(response.getBody());
-            }
-        }
-
-        return films;
+        return filmUrls.stream()
+                .map(url -> restTemplate.getForEntity(baseUrl + url.replace(baseUrl, ""), Film.class))
+                .filter(response -> response.getStatusCode() == HttpStatus.OK && response.getBody() != null)
+                .map(ResponseEntity::getBody)
+                .collect(Collectors.toList());
     }
 
     private List<String> mergeVehicleAndStarshipUrls(List<String> vehicleUrls, List<String> starshipUrls) {

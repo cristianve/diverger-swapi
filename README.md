@@ -1,5 +1,6 @@
-# Technical test Swapi
-Diverger Swapi Proxy Java API
+# 🛠️ Technical Test: Swapi
+
+🚀 Diverger Swapi Proxy Java API
 
 ### Java Spring dependencies
 
@@ -14,10 +15,11 @@ Diverger Swapi Proxy Java API
 
 # Exercise definition
 
-1. Connect to https://swapi.trileuco.com/ external API.
+1. Connect to 🔗 https://swapi.trileuco.com/ external API.
 2. Create endpoint:
    --> http://{host}:{port}/swapi-proxy/person-info?name=Luke%20Skywalker
 3. Return JSON with this format:
+
 ```
 {
   "name": "Luke Skywalker",
@@ -50,47 +52,92 @@ Diverger Swapi Proxy Java API
 }
 ```
 
-#### Notes: 
-- **Incorrect name** -- return --> **JSON 404 ERROR**
-- Attribute **fastest_vehicle_driven** has to be filled with the faster (high max_atmosphering_speed) vehicle or starship.
+#### Notes:
+
+- **Incorrect name** -- ➡️ return --> **JSON 404 ERROR**
+- Attribute **fastest_vehicle_driven** has to be filled with the faster (high max_atmosphering_speed) vehicle or
+  starship.
+
+# Implementation
 
 ### Folder Structure - DDD
 
 ``` 
-├───src
-│   ├───main
-│   │   ├───java
-│   │   │   └───com
-│   │   │       └───diverger
-│   │   │           └───swapi
-│   │   │               ├───application
-│   │   │               ├───domain
-│   │   │               └───infraestructure
-│   │   │                   ├───config
-│   │   │                   ├───controller
-│   │   │                   └───external
-│   │   └───resources
-│   │       │   application.properties
-│   │       ├───static
-│   │       └───templates
-│   └───test
-│       └───java
-│           └───com
-│               └───diverger
-│                   └───swapi
-│                           SwapiApplicationTests.java
+src/
+├── main/
+│   ├── java/
+│   │   └── com/
+│   │       └── diverger/
+│   │           └── swapi/
+│   │               ├── application/
+│   │               │   ├── controller/
+│   │               │   │   └── PersonController.java
+│   │               │   └── service/
+│   │               │       └── PersonService.java
+│   │               │
+│   │               ├── domain/
+│   │               │   ├── exception/
+│   │               │   │   └── PersonNotFoundException.java
+│   │               │   ├── model/
+│   │               │   │   ├── Film.java
+│   │               │   │   └── PersonInfo.java
+│   │               │   └── repository/
+│   │               │       └── SwapiRepository.java
+│   │               │
+│   │               └── infrastructure/
+│   │                   ├── config/
+│   │                   │   └── AppConfig.java
+│   │                   └── external/
+│   │                       └── SwapiRepositoryImpl.java
+│   └── resources/
+│       └── application.properties
+└── test/
+    ├── java/
+    │   └── com/
+    │       └── diverger/
+    │           └── swapi/
+    │               ├── external/
+    │               │   └── SwapiRepositoryImplTest.java
+    │               ├── rest/
+    │               │   └── controller/
+    │               │       └── PersonControllerTest.java
+    │               └── service/
+    │                   └── PersonServiceTest.java
+    └── resources/
+        └── application.properties
 ```
 
-* Postman collection JSON to import with all endpoints.
-
-# Error Handling strategy
-
+📂 Postman Collection JSON to Import with All Endpoints.
 
 # How to set up
 
-```mvn clean install```
+```# Clone the repository from Git
+git clone https://github.com/cristianve/diverger-swapi
+
+# Navigate to the project directory
+cd diverger-swapi
+
+# Compile the project using Maven
+mvn clean install
+
+# Run the project
+java -jar target/swapi-0.0.1-SNAPSHOT.jar
+```
 
 ### Swagger URL:
+
 http://localhost:8080/swagger-ui/index.html
 
 # Results
+
+🎉 **Successful 200 OK**:
+
+[![image](./img/200OK.PNG)]
+
+❌ **404 Not Found**:
+
+[![image](./img/404.PNG)]
+
+🔍 Unitary test:
+
+[![image](./img/TEST.PNG)]
