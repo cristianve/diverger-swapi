@@ -62,7 +62,78 @@
 
 ### Folder Structure - DDD
 
+DDD: Scaling, maintaining, and understanding your code more efficiently.
+
 ``` 
+src
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── diverger
+│   │           └── swapi
+│   │               │   SwapiApplication.java
+│   │               │
+│   │               ├───application
+│   │               │   ├───service
+│   │               │   │       PersonServiceImpl.java
+│   │               │   │
+│   │               │   └───usecase
+│   │               │           RetrievePersonInfoImpl.java
+│   │               │
+│   │               ├───domain
+│   │               │   ├───exception
+│   │               │   │       PersonNotFoundException.java
+│   │               │   │
+│   │               │   ├───model
+│   │               │   │       Film.java
+│   │               │   │       PersonInfo.java
+│   │               │   │
+│   │               │   └───ports
+│   │               │       ├───in
+│   │               │       │       RetrievePersonInfo.java
+│   │               │       │
+│   │               │       └───out
+│   │               │               ExternalServiceSwapi.java
+│   │               │
+│   │               └───infraestructure
+│   │                   ├───adapters
+│   │                   │       ExternalServiceAdapter.java
+│   │                   │
+│   │                   ├───config
+│   │                   │       AppConfig.java
+│   │                   │
+│   │                   ├───controller
+│   │                   │       PersonController.java
+│   │                   │
+│   │                   └───dto
+│   │                           PlanetDTO.java
+│   │                           StarshipDTO.java
+│   │                           SwapiPeopleDTO.java
+│   │                           SwapiPeopleResponseDTO.java
+│   │                           VehicleDTO.java
+│   │                           VehicleOrStarshipDTO.java
+│   └───resources
+│       │   application.properties
+└───test
+    └───test
+        ├───com
+        │   └───diverger
+        │       └───swapi
+        │           │   SwapiApplicationTests.java
+        │           │
+        │           ├───application
+        │           │   └───service
+        │           │           PersonServiceTest.java
+        │           │
+        │           └───infraestructure
+        │               ├───adapters
+        │               │       SwapiRepositoryImplTest.java
+        │               │
+        │               └───controller
+        │                       PersonControllerTest.java
+        │
+        └───resources
+            │   application.properties
 
 ```
 
