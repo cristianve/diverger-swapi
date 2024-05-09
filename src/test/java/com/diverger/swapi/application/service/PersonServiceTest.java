@@ -1,8 +1,9 @@
-package com.diverger.swapi.service;
+package com.diverger.swapi.application.service;
 
 import com.diverger.swapi.application.service.PersonServiceImpl;
 import com.diverger.swapi.domain.model.PersonInfo;
-import com.diverger.swapi.domain.repository.SwapiRepository;
+import com.diverger.swapi.domain.ports.in.RetrievePersonInfo;
+import com.diverger.swapi.infraestructure.adapters.ExternalServiceAdapter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class PersonServiceTest {
 
     @Mock
-    private SwapiRepository swapiRepository;
+    private RetrievePersonInfo retrievePersonInfo;
 
     @InjectMocks
     private PersonServiceImpl personService;
@@ -31,7 +32,7 @@ public class PersonServiceTest {
         String name = "Luke Skywalker";
         PersonInfo expectedPersonInfo = new PersonInfo();
 
-        when(swapiRepository.getPersonInfo(anyString())).thenReturn(expectedPersonInfo);
+        when(retrievePersonInfo.getPersonInfo(anyString())).thenReturn(expectedPersonInfo);
 
 
         PersonInfo personInfo = personService.getPersonInfo(name);

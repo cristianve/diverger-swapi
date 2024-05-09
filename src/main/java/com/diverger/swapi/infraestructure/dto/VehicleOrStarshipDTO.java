@@ -1,4 +1,4 @@
-package com.diverger.swapi.infraestructure.entity;
+package com.diverger.swapi.infraestructure.dto;
 
 
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class VehicleOrStarshipEntity {
+public class VehicleOrStarshipDTO {
     private String name;
     private String model;
     private String manufacturer;

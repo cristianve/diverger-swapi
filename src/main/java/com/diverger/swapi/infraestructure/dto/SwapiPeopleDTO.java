@@ -1,11 +1,11 @@
-package com.diverger.swapi.infraestructure.entity;
+package com.diverger.swapi.infraestructure.dto;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class SwapiPeopleEntity {
+public class SwapiPeopleDTO {
 
     private String name;
     private String gender;

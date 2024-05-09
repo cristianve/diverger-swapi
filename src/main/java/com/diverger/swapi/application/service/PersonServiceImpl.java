@@ -1,22 +1,23 @@
 package com.diverger.swapi.application.service;
 
-import com.diverger.swapi.domain.PersonService;
 import com.diverger.swapi.domain.model.PersonInfo;
-import com.diverger.swapi.domain.repository.SwapiRepository;
+import com.diverger.swapi.domain.ports.in.RetrievePersonInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonServiceImpl implements PersonService {
+public class PersonServiceImpl implements RetrievePersonInfo {
 
-    private final SwapiRepository swapiRepository;
+    private final RetrievePersonInfo retrievePersonInfo;
 
     @Autowired
-    public PersonServiceImpl(SwapiRepository swapiRepository) {
-        this.swapiRepository = swapiRepository;
+    public PersonServiceImpl(RetrievePersonInfo retrievePersonInfo) {
+        this.retrievePersonInfo = retrievePersonInfo;
     }
 
+
+    @Override
     public PersonInfo getPersonInfo(String name) {
-        return swapiRepository.getPersonInfo(name);
+        return retrievePersonInfo.getPersonInfo(name);
     }
 }

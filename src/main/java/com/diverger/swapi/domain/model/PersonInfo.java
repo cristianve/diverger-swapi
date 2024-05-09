@@ -1,9 +1,7 @@
 package com.diverger.swapi.domain.model;
 
-import lombok.*;
-
+import lombok.Data;
 import java.util.List;
-
 
 @Data
 public class PersonInfo {

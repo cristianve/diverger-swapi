@@ -1,4 +1,4 @@
-package com.diverger.swapi.infraestructure.entity;
+package com.diverger.swapi.infraestructure.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SwapiPeopleResponseEntity {
-    private SwapiPeopleEntity[] results;
+public class SwapiPeopleResponseDTO {
+    private SwapiPeopleDTO[] results;
 
-    public SwapiPeopleEntity[] getResults() {
+    public SwapiPeopleDTO[] getResults() {
         return results;
     }
 

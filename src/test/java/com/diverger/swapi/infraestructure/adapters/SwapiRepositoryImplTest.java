@@ -1,9 +1,8 @@
-package com.diverger.swapi.extenal;
+package com.diverger.swapi.infraestructure.adapters;
 
 import com.diverger.swapi.domain.exception.PersonNotFoundException;
-import com.diverger.swapi.infraestructure.entity.SwapiPeopleEntity;
-import com.diverger.swapi.infraestructure.entity.SwapiPeopleResponseEntity;
-import com.diverger.swapi.infraestructure.external.SwapiRepositoryImpl;
+import com.diverger.swapi.infraestructure.dto.SwapiPeopleDTO;
+import com.diverger.swapi.infraestructure.dto.SwapiPeopleResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -23,21 +22,21 @@ class SwapiRepositoryImplTest {
     @Mock
     private RestTemplate restTemplate;
 
-    private SwapiRepositoryImpl swapiRepository;
+    private ExternalServiceAdapter externalServiceAdapter;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        swapiRepository = new SwapiRepositoryImpl(restTemplate);
-        swapiRepository.setBaseUrl("https://swapi.dev/api");
+        externalServiceAdapter = new ExternalServiceAdapter(restTemplate);
+        externalServiceAdapter.setBaseUrl("https://swapi.dev/api");
     }
 
 
     @Test
     void testGetPersonInfo_WhenPersonNotFound() {
         // Prepare the expected response for the restTemplate call
-        SwapiPeopleResponseEntity mockResponse = new SwapiPeopleResponseEntity();
-        mockResponse.setResults(new ArrayList<>().toArray(new SwapiPeopleEntity[0]));
+        SwapiPeopleResponseDTO mockResponse = new SwapiPeopleResponseDTO();
+        mockResponse.setResults(new ArrayList<>().toArray(new SwapiPeopleDTO[0]));
 
         // Mock the restTemplate call to return the prepared response
         when(restTemplate.getForEntity(any(String.class), any(Class.class)))
@@ -45,7 +44,7 @@ class SwapiRepositoryImplTest {
 
         // Execute the method under test and expect a PersonNotFoundException
         assertThrows(PersonNotFoundException.class, () -> {
-            swapiRepository.getPersonInfo("NonExistentCharacter");
+            externalServiceAdapter.getPersonInfo("NonExistentCharacter");
         }, "Expected a PersonNotFoundException but it was not thrown.");
     }
 }

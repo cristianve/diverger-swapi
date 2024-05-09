@@ -1,8 +1,9 @@
-package com.diverger.swapi.domain;
+package com.diverger.swapi.domain.ports.in;
 
 import com.diverger.swapi.domain.model.PersonInfo;
 
-public interface PersonService {
+public interface RetrievePersonInfo {
 
     PersonInfo getPersonInfo(String name);
+
 }

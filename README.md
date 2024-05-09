@@ -63,48 +63,7 @@
 ### Folder Structure - DDD
 
 ``` 
-src/
-├── main/
-│   ├── java/
-│   │   └── com/
-│   │       └── diverger/
-│   │           └── swapi/
-│   │               ├── application/
-│   │               │   ├── controller/
-│   │               │   │   └── PersonController.java
-│   │               │   └── service/
-│   │               │       └── PersonService.java
-│   │               │
-│   │               ├── domain/
-│   │               │   ├── exception/
-│   │               │   │   └── PersonNotFoundException.java
-│   │               │   ├── model/
-│   │               │   │   ├── Film.java
-│   │               │   │   └── PersonInfo.java
-│   │               │   └── repository/
-│   │               │       └── SwapiRepository.java
-│   │               │
-│   │               └── infrastructure/
-│   │                   ├── config/
-│   │                   │   └── AppConfig.java
-│   │                   └── external/
-│   │                       └── SwapiRepositoryImpl.java
-│   └── resources/
-│       └── application.properties
-└── test/
-    ├── java/
-    │   └── com/
-    │       └── diverger/
-    │           └── swapi/
-    │               ├── external/
-    │               │   └── SwapiRepositoryImplTest.java
-    │               ├── rest/
-    │               │   └── controller/
-    │               │       └── PersonControllerTest.java
-    │               └── service/
-    │                   └── PersonServiceTest.java
-    └── resources/
-        └── application.properties
+
 ```
 
 📂 Postman Collection JSON to Import with All Endpoints.

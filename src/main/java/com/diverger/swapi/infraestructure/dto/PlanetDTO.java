@@ -1,4 +1,4 @@
-package com.diverger.swapi.infraestructure.entity;
+package com.diverger.swapi.infraestructure.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 
 @Data
-public class PlanetEntity {
+public class PlanetDTO {
     private String name;
     private String rotation_period;
     private String orbital_period;

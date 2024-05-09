@@ -1,7 +1,7 @@
-package com.diverger.swapi.rest.controller;
+package com.diverger.swapi.infraestructure.controller;
 
 import com.diverger.swapi.application.service.PersonServiceImpl;
-import com.diverger.swapi.application.service.controller.PersonController;
+import com.diverger.swapi.infraestructure.controller.PersonController;
 import com.diverger.swapi.domain.exception.PersonNotFoundException;
 import com.diverger.swapi.domain.model.PersonInfo;
 import org.junit.jupiter.api.BeforeEach;

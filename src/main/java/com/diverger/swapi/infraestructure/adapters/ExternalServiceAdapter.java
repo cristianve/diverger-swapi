@@ -1,13 +1,13 @@
-package com.diverger.swapi.infraestructure.external;
+package com.diverger.swapi.infraestructure.adapters;
 
 import com.diverger.swapi.domain.exception.PersonNotFoundException;
 import com.diverger.swapi.domain.model.Film;
 import com.diverger.swapi.domain.model.PersonInfo;
-import com.diverger.swapi.domain.repository.SwapiRepository;
-import com.diverger.swapi.infraestructure.entity.PlanetEntity;
-import com.diverger.swapi.infraestructure.entity.SwapiPeopleEntity;
-import com.diverger.swapi.infraestructure.entity.SwapiPeopleResponseEntity;
-import com.diverger.swapi.infraestructure.entity.VehicleOrStarshipEntity;
+import com.diverger.swapi.domain.ports.out.ExternalServiceSwapi;
+import com.diverger.swapi.infraestructure.dto.PlanetDTO;
+import com.diverger.swapi.infraestructure.dto.SwapiPeopleDTO;
+import com.diverger.swapi.infraestructure.dto.SwapiPeopleResponseDTO;
+import com.diverger.swapi.infraestructure.dto.VehicleOrStarshipDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 
 @Repository
-public class SwapiRepositoryImpl implements SwapiRepository {
+public class ExternalServiceAdapter implements ExternalServiceSwapi {
 
     private final RestTemplate restTemplate;
 
@@ -30,7 +30,7 @@ public class SwapiRepositoryImpl implements SwapiRepository {
 
     private final String peoplePath = "/people";
 
-    public SwapiRepositoryImpl(RestTemplate restTemplate) {
+    public ExternalServiceAdapter(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
@@ -41,7 +41,7 @@ public class SwapiRepositoryImpl implements SwapiRepository {
     @Override
     public PersonInfo getPersonInfo(String name) {
         String url = baseUrl + peoplePath;
-        ResponseEntity<SwapiPeopleResponseEntity> response = restTemplate.getForEntity(url, SwapiPeopleResponseEntity.class);
+        ResponseEntity<SwapiPeopleResponseDTO> response = restTemplate.getForEntity(url, SwapiPeopleResponseDTO.class);
 
         Optional<PersonInfo> personInfo = response.getStatusCode() == HttpStatus.OK && response.getBody() != null ?
                 findPersonInfoByName(response.getBody(), name) :
@@ -50,8 +50,8 @@ public class SwapiRepositoryImpl implements SwapiRepository {
         return personInfo.orElseThrow(() -> new PersonNotFoundException());
     }
 
-    private Optional<PersonInfo> findPersonInfoByName(SwapiPeopleResponseEntity swapiPeopleResponse, String name) {
-        for (SwapiPeopleEntity person : swapiPeopleResponse.getResults()) {
+    private Optional<PersonInfo> findPersonInfoByName(SwapiPeopleResponseDTO swapiPeopleResponse, String name) {
+        for (SwapiPeopleDTO person : swapiPeopleResponse.getResults()) {
             if (person.getName().equalsIgnoreCase(name)) {
                 return Optional.of(mapToPersonInfo(person));
             }
@@ -59,7 +59,7 @@ public class SwapiRepositoryImpl implements SwapiRepository {
         return Optional.empty();
     }
 
-    private PersonInfo mapToPersonInfo(SwapiPeopleEntity person) {
+    private PersonInfo mapToPersonInfo(SwapiPeopleDTO person) {
         PersonInfo personInfo = new PersonInfo();
         personInfo.setName(person.getName());
         personInfo.setBirth_year(person.getBirth_year());
@@ -73,7 +73,7 @@ public class SwapiRepositoryImpl implements SwapiRepository {
     private String extractPlanetName(String homeworldUrl) {
 
 
-        ResponseEntity<PlanetEntity> response = restTemplate.getForEntity(baseUrl + homeworldUrl.replace(baseUrl, ""), PlanetEntity.class);
+        ResponseEntity<PlanetDTO> response = restTemplate.getForEntity(baseUrl + homeworldUrl.replace(baseUrl, ""), PlanetDTO.class);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
             return response.getBody().getName();
@@ -89,10 +89,10 @@ public class SwapiRepositoryImpl implements SwapiRepository {
         String fastestVehicleOrStarshipName = "None";
 
         for (String url : vehicleOrStarshipUrls) {
-            ResponseEntity<VehicleOrStarshipEntity> response = restTemplate.getForEntity(baseUrl + url.replace(baseUrl, ""), VehicleOrStarshipEntity.class);
+            ResponseEntity<VehicleOrStarshipDTO> response = restTemplate.getForEntity(baseUrl + url.replace(baseUrl, ""), VehicleOrStarshipDTO.class);
 
             if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-                VehicleOrStarshipEntity vehicleOrStarship = response.getBody();
+                VehicleOrStarshipDTO vehicleOrStarship = response.getBody();
                 int speed = Integer.parseInt(vehicleOrStarship.getMax_atmosphering_speed());
                 if (speed > maxSpeed) {
                     maxSpeed = speed;

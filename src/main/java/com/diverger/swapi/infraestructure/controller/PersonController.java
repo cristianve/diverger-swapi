@@ -1,4 +1,4 @@
-package com.diverger.swapi.application.service.controller;
+package com.diverger.swapi.infraestructure.controller;
 
 import com.diverger.swapi.application.service.PersonServiceImpl;
 import com.diverger.swapi.domain.exception.PersonNotFoundException;

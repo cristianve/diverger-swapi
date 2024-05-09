@@ -1,8 +1,7 @@
-package com.diverger.swapi.domain.repository;
-
+package com.diverger.swapi.domain.ports.out;
 
 import com.diverger.swapi.domain.model.PersonInfo;
 
-public interface SwapiRepository {
+public interface ExternalServiceSwapi {
     PersonInfo getPersonInfo(String name);
 }
