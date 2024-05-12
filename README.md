@@ -213,6 +213,9 @@ git clone https://github.com/cristianve/diverger-swapi
 # Navigate to the project directory
 cd diverger-swapi/frontend
 
+# Install all dependencies 
+npm install
+
 # Execute the app using NPM
 npm start
 ```
@@ -237,3 +240,12 @@ http://localhost:3000
 ✈️ Full charged Page:
 
 ![image](./img/FullPage.PNG)
+
+
+# Docker compose
+
+To execute the two services using docker-compose:
+
+```
+docker-compose up
+```
