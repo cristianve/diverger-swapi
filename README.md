@@ -2,17 +2,6 @@
 
 🚀 Diverger Swapi Proxy Java API
 
-### Java Spring dependencies
-
-- Spring web
-- Lombok
-- Swagger
-
-### Versions
-
-* Spring boot 3.2.5
-* Java 17
-
 # Exercise definition
 
 1. Connect to 🔗 https://swapi.trileuco.com/ external API.
@@ -58,7 +47,22 @@
 - Attribute **fastest_vehicle_driven** has to be filled with the faster (high max_atmosphering_speed) vehicle or
   starship.
 
-# Implementation
+<br>
+
+---
+# Backend
+
+### Java Spring dependencies
+
+- Spring web
+- Lombok
+- Swagger
+
+### Versions
+
+* Spring boot 3.2.5
+* Java 17
+
 
 ### Folder Structure - DDD
 
@@ -145,7 +149,7 @@ src
 git clone https://github.com/cristianve/diverger-swapi
 
 # Navigate to the project directory
-cd diverger-swapi
+cd diverger-swapi/backend
 
 # Compile the project using Maven
 mvn clean install
@@ -188,3 +192,48 @@ http://localhost:8080/swagger-ui/index.html
 🔍 Unitary test:
 
 ![image](./img/TEST.PNG)
+
+
+<br>
+
+---
+# Frontend
+
+### Versions
+
+* NodeJS
+* React
+* Material-UI
+
+# How to set up
+
+```# Clone the repository from Git
+git clone https://github.com/cristianve/diverger-swapi
+
+# Navigate to the project directory
+cd diverger-swapi/frontend
+
+# Execute the app using NPM
+npm start
+```
+
+
+### Docker steps:
+
+```
+docker build -t swapi-ui .
+
+docker run -p 3000:3000 swapi-ui
+```
+
+### Swapi-UI URL:
+
+http://localhost:3000
+
+# Results
+⌛️🔄🔃 Loanding Page:
+![image](./img/Loanding.PNG)
+
+✈️ Full charged Page:
+
+![image](./img/FullPage.PNG)
